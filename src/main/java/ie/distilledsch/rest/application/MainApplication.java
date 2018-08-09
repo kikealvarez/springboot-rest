@@ -2,11 +2,12 @@ package ie.distilledsch.rest.application;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
+@SpringBootApplication
+@ComponentScan("ie.distilledsch.rest")
 public class MainApplication {
     public static void main(String[] args) {
-
-        System.out.println("hiiiiiii");
         SpringApplication.run(MainApplication.class, args);
     }
 }
