@@ -1,7 +1,7 @@
 package ie.distilledsch.rest.domain.service;
 
 import ie.distilledsch.rest.application.UserRepository;
-import ie.distilledsch.rest.domain.entity.User;
+import ie.distilledsch.rest.domain.entity.UserEntity;
 import ie.distilledsch.rest.domain.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,24 +15,24 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public Iterable<User> listUsers() {
+    public Iterable<UserEntity> listUsers() {
         return userRepository.findAll();
     }
 
-    public Optional<User> getUser(String id) {
+    public Optional<UserEntity> getUser(String id) {
         return userRepository.findById(id);
     }
 
-    public User createUser(User user) {
-        return userRepository.save(user);
+    public UserEntity createUser(UserEntity userEntity) {
+        return userRepository.save(userEntity);
     }
 
-    public User editUser(User user) throws UserNotFoundException {
-        if (userRepository.existsById(user.getId())) {
-            return userRepository.save(user);
+    public UserEntity editUser(UserEntity userEntity) throws UserNotFoundException {
+        if (userRepository.existsById(userEntity.getId())) {
+            return userRepository.save(userEntity);
         }
 
-        throw new UserNotFoundException(new StringBuilder("No user found with id = ").append(user.getId()).toString());
+        throw new UserNotFoundException(new StringBuilder("No userEntity found with id = ").append(userEntity.getId()).toString());
     }
 
     public void deleteUser(String id) throws UserNotFoundException {

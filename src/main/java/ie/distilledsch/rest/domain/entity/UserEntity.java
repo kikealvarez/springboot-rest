@@ -1,6 +1,5 @@
 package ie.distilledsch.rest.domain.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +15,7 @@ import javax.validation.constraints.NotEmpty;
 @Getter
 @Setter
 @Document(collection="users")
-public class User {
+public class UserEntity {
     @Id
     private String id;
 
@@ -26,6 +25,9 @@ public class User {
 
     @NotEmpty(message = "Password must be set")
     private String password;
+
+    @NotEmpty(message = "Username must be set")
+    private String username;
 
     @NotEmpty(message = "First name must be set")
     private String firstName;

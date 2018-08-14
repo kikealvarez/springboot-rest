@@ -1,6 +1,6 @@
 package ie.distilledsch.rest.application.controller;
 
-import ie.distilledsch.rest.domain.entity.User;
+import ie.distilledsch.rest.domain.entity.UserEntity;
 import ie.distilledsch.rest.domain.exception.UserNotFoundException;
 import ie.distilledsch.rest.domain.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class UserController {
 
     @GetMapping("/user/{id}")
     public ResponseEntity getUser(@PathVariable String id) {
-        Optional<User> user = userService.getUser(id);
+        Optional<UserEntity> user = userService.getUser(id);
 
         if (user.isPresent()) {
             return ResponseEntity.ok(user.get());
@@ -34,29 +34,29 @@ public class UserController {
     }
 
     @PostMapping("/user")
-    public ResponseEntity createUser(@Valid @RequestBody User user, BindingResult result) {
+    public ResponseEntity createUser(@Valid @RequestBody UserEntity userEntity, BindingResult result) {
         if (result.hasErrors()) {
             return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
         }
 
-        User userCreated = userService.createUser(user);
+        UserEntity userEntityCreated = userService.createUser(userEntity);
 
-        return ResponseEntity.ok(userCreated);
+        return ResponseEntity.ok(userEntityCreated);
     }
 
     @PutMapping("/user")
-    public ResponseEntity replaceUser(@Valid @RequestBody User user, BindingResult result) throws UserNotFoundException {
+    public ResponseEntity replaceUser(@Valid @RequestBody UserEntity userEntity, BindingResult result) throws UserNotFoundException {
         if (result.hasErrors()) {
             return new ResponseEntity<>(result.getAllErrors(), HttpStatus.BAD_REQUEST);
         }
 
         try {
-            userService.editUser(user);
+            userService.editUser(userEntity);
         } catch (UserNotFoundException e) {
             return new ResponseEntity<>(result.getAllErrors(), HttpStatus.NOT_FOUND);
         }
 
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(userEntity);
     }
 
     @DeleteMapping("/user/{id}")
